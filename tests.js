@@ -11,6 +11,7 @@ var diffs = [];
   
   addDiff( {
     id: 'zeroLengthLineJoin',
+    name: '0-length line join',
     width: 32,
     height: 32,
     draw: function( context ) {
