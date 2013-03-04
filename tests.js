@@ -111,4 +111,21 @@ var diffs = [];
     }
   } );
   
+  addDiff( {
+    id: 'offZeroArcJoin',
+    name: 'Off-zero arc join',
+    width: 32,
+    height: 32,
+    draw: function( context ) {
+      context.beginPath();
+      context.moveTo( 0, 2 );
+      context.lineTo( 2, 2 );
+      context.arc( 2, 2, 0.01, Math.PI, -Math.PI / 2, true );
+      context.lineTo( 2, 0 );
+      context.lineWidth = 40;
+      context.strokeStyle = '#000000';
+      context.stroke();
+    }
+  } );
+  
 })();
