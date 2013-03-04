@@ -496,4 +496,29 @@ var diffs = [];
     }
   } );
   
+  addDiff( {
+    id: 'shadowDrawImage',
+    name: 'Shadow drawImage',
+    width: 100,
+    height: 100,
+    draw: function( context ) {
+      var scratchCanvas = document.createElement( 'canvas' );
+      scratchCanvas.width = 50;
+      scratchCanvas.height = 50;
+      var scratchContext = scratchCanvas.getContext( '2d' );
+      
+      scratchContext.beginPath();
+      scratchContext.arc( 25, 25, 25, 0, 2 * Math.PI, false );
+      scratchContext.closePath();
+      scratchContext.fillStyle = '#0000ff';
+      scratchContext.fill();
+      
+      context.shadowOffsetX = 10;
+      context.shadowOffsetY = 10;
+      context.shadowBlur = 60;
+      context.shadowColor = '#000000';
+      context.drawImage( scratchCanvas, 0, 0 );
+    }
+  } );
+  
 })();
