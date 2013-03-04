@@ -412,4 +412,49 @@ var diffs = [];
     }
   } );
   
+  addDiff( {
+    id: 'zigZagAntialiasing',
+    name: 'Zig-Zag Antialiasing',
+    width: 240,
+    height: 110,
+    draw: function( context ) {
+      context.fillStyle = '#000000';
+      context.fillRect( 0, 0, this.width, this.height );
+      context.translate( -40, 0 );
+      zig( context, 50, 0, 10, 100, 1, 10 );
+      zig( context, 60, 0, 10, 100, 1, 5 );
+      zig( context, 70, 0, 10, 100, 2, 5 );
+      zig( context, 90, 0, 10, 50, 2, 5 );
+      zig( context, 110, 0, 10, 100, 2.5, 10 );
+      zig( context, 135, 0, 10, 100, 2.5, 10 );
+      zig( context, 160, 0, 20, 100, Math.PI, 10 );
+      zag( context, 230, 0, 10, 100, 1, 10 );
+      zag( context, 240, 0, 10, 100, 1, 5 );
+      zag( context, 250, 0, 10, 100, 2, 5 );
+    }
+  } );
+  
+  addDiff( {
+    id: 'textShear',
+    name: 'Text Shear',
+    width: 32,
+    height: 128,
+    draw: function( context ) {
+      context.fillStyle = '#000000';
+      context.fillRect( 0, 0, this.width, this.height );
+      for ( var i = 0; i < 20; i++ ) {
+        context.save();
+        context.translate( 0, -250 );
+        context.font = '20px Arial';
+        context.fillStyle = '#ffffff';
+        context.translate( i, 200 );
+        context.transform( 1, 50 + i^2, 0, 1, 0, 0 );
+        context.fillText( 'G', 0, 0 );
+        context.fillText( 'G', 0, 0 );
+        context.fillText( 'G', 0, 0 );
+        context.restore();
+      }
+    }
+  } );
+  
 })();

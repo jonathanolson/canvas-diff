@@ -58,4 +58,40 @@ function demoPath( context, width, height, drawPath, dashes ) {
   context.restore();
 }
 
+function zig( context, x, y, count, height, space, offset ) {
+  var i;
+  context.save();
+  context.beginPath();
+  context.fillStyle = '#ffffff';
+  context.translate( x, y );
+  context.moveTo( 0, 0 );
+  for ( i = 0; i < count; i++ ) {
+    context.lineTo( space * ( i - 0.5 ), height );
+    context.lineTo( space * i, 0 );
+  }
+  for ( i = count - 1; i >= 0; i-- ) {
+    context.lineTo( space * i, offset );
+    context.lineTo( space * ( i - 0.5 ), height + offset );
+  }
+  context.fill();
+  context.restore();
+}
+
+function zag( context, x, y, count, height, space, offset ) {
+  var i;
+  context.save();
+  context.beginPath();
+  context.fillStyle = '#ff0000';
+  context.translate( x, y );
+  context.moveTo( 0, 0 );
+  for ( i = 0; i < count; i++ ) {
+    context.quadraticCurveTo( space * ( i - 0.5 ), height, space * i, 0 );
+  }
+  for ( i = count - 1; i >= 0; i-- ) {
+    context.quadraticCurveTo( space * i, offset, space * ( i - 0.5 ), height + offset );
+  }
+  context.fill();
+  context.restore();
+}
+
 var browsers = [];
