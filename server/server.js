@@ -2,6 +2,8 @@
 // just used for test case creation
 var http = require( 'http' );
 http.createServer( function( req, res ) {
+  // see http://nodejs.org/api/http.html#http_request_method for docs
+  
   var headers = {
     'Content-Type': 'text/plain',
     'Access-Control-Allow-Origin': '*',
@@ -9,18 +11,19 @@ http.createServer( function( req, res ) {
     'Access-Control-Allow-Methods': 'POST,OPTIONS'
   }
   
+  // bail out quickly if it is just an OPTIONS request from CORS (we are on a different port)
   if ( req.method === 'OPTIONS' ) {
     res.writeHead( 200, headers );
     res.end( 'Success' );
     return;
   }
   
-  var body = "";
+  var postdata = "";
   req.on( 'data', function( chunk ) {
-    body += chunk;
+    postdata += chunk;
   } );
   req.on( 'end', function () {
-    console.log( 'POSTed: ' + body );
+    console.log( 'POSTed: ' + postdata );
     res.writeHead( 200, headers );
     res.end( 'Success' );
   });
