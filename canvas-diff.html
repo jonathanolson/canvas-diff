@@ -15,7 +15,7 @@
   <style type="text/css">
     
     h2 {
-      margin-top: 30px;
+      margin-top: 20px;
       margin-bottom: 10px;
     }
     
@@ -46,13 +46,16 @@
       border-radius: 5px;
       top: 10px;
       color: #fff;
-      content: attr(data-name);
+      content: attr(data-browser-name);
       display: block;
       left: 0;
       padding: 5px 15px;
       position: absolute;
       white-space: nowrap;
       z-index: 1000;
+    }
+    .current .tooltip:hover:after {
+      content: attr(data-diff-name);
     }
   </style>
 </head>
@@ -79,8 +82,10 @@
         
         var span = document.createElement( 'span' );
         span.setAttribute( 'class', 'tooltip' );
-        span.setAttribute( 'data-id', id );
-        span.setAttribute( 'data-name', name );
+        span.setAttribute( 'data-browser-id', id );
+        span.setAttribute( 'data-browser-name', name );
+        span.setAttribute( 'data-diff-id', diff.id );
+        span.setAttribute( 'data-diff-name', diff.name );
         span.appendChild( img );
         div.appendChild( span );
         document.body.appendChild( div );
