@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Canvas-diff</title>
+  
+  <script src="canvas-diff.js"></script>
+  <script src="tests.js"></script>
+  
+  <style type="text/css">
+    .canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <script type="text/javascript">
+    for ( var i = 0; i < diffs.length; i++ ) {
+      var canvas = diffToCanvas( diffs[i] );
+      canvas.setAttribute( 'class', 'canvas main-canvas' );
+      document.body.appendChild( canvas );
+    }
+  </script>
+</body>
+</html>

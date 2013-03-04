@@ -4,6 +4,9 @@
   <meta charset="utf-8"/>
   <title>Submit canvas-diff</title>
   
+  <script src="canvas-diff.js"></script>
+  <script src="tests.js"></script>
+  
   <style type="text/css">
 
   </style>
@@ -11,10 +14,33 @@
 
 <body>
   <script type="text/javascript">
+    
+    function e( str ) {
+      // for now, just escape out the single quotes. XSS would be the least of our worries if the server is running publicly
+      return str.replace( /'/g, "\\'" );
+    }
+    
+    // string concatenation would obviously be a bad way to handle this if this was public-facing
+    var diffString = "";
+    
+    for ( var i = 0; i < diffs.length; i++ ) {
+      var canvas = diffToCanvas( diffs[i] );
+      diffString += "    " + e( diffs[i].id ) + ": '" + e( canvas.toDataURL() ) + "'" + ( i === diffs.length - 1 ? '' : ',' ) + "\n";
+    }
+    
+    var output =  "snapshots.push( {\n" +
+                  "  userAgent: '" + e( navigator.userAgent ) + "',\n" + 
+                  "  appVersion: '" + e( navigator.appVersion ) + "',\n" + 
+                  "  platform: '" + e( navigator.platform ) + "',\n" + 
+                  "  snapshots: {\n" + 
+                       diffString + 
+                  "  }\n" +
+                  " } );\n\n";
+    
     var xmlhttp = new window.XMLHttpRequest();
     xmlhttp.open( 'POST', 'http://localhost:8082', true );
     xmlhttp.setRequestHeader( 'Content-type', 'text/javascript' );
-    xmlhttp.send( 'while( 1 );' );
+    xmlhttp.send( output );
   </script>
 </body>
 </html>
