@@ -27,7 +27,10 @@ http.createServer( function( req, res ) {
     postdata += chunk;
   } );
   req.on( 'end', function () {
-    fs.writeFile( '../snapshots/last.js', postdata, function( err ) {
+    var browser = decodeURIComponent( req.url.slice( 1 ) );
+    console.log( browser );
+    
+    fs.writeFile( '../snapshots/' + browser + '.js', postdata, function( err ) {
       if( err ) {
         console.log( err );
         

@@ -7,7 +7,10 @@
   <script src="canvas-diff.js"></script>
   <script src="tests.js"></script>
   
-  <script src="snapshots/last.js"></script>
+  <script src="snapshots/chrome-25-win7-64.js"></script>
+  <script src="snapshots/firefox-19-win7-64.js"></script>
+  <script src="snapshots/ie-9-win7-64.js"></script>
+  <script src="snapshots/opera-12-win7-64.js"></script>
   
   <style type="text/css">
     
@@ -26,6 +29,10 @@
       display: inline;
     }
     
+    .snapshot-container.current {
+      margin-right: 20px;
+    }
+    
     .tooltip {
       display: inline;
       position: relative;
@@ -39,7 +46,7 @@
       border-radius: 5px;
       top: 10px;
       color: #fff;
-      content: attr(data-browser);
+      content: attr(data-id);
       display: block;
       left: 0;
       padding: 5px 15px;
@@ -62,18 +69,17 @@
       header.appendChild( document.createTextNode( diff.id ) );
       document.body.appendChild( header );
       
-      function add( dataURL, userAgent ) {
+      function add( dataURL, id, userAgent ) {
         var img = document.createElement( 'img' );
         img.setAttribute( 'class', 'snapshot' );
-        img.setAttribute( 'data-browser', userAgent );
         img.src = dataURL;
         
         var div = document.createElement( 'div' );
-        div.setAttribute( 'class', 'snapshot-container' );
+        div.setAttribute( 'class', 'snapshot-container' + ( id === 'current' ? ' current' : '' ) );
         
         var span = document.createElement( 'span' );
         span.setAttribute( 'class', 'tooltip' );
-        span.setAttribute( 'data-browser', userAgent );
+        span.setAttribute( 'data-id', id );
         span.appendChild( img );
         div.appendChild( span );
         document.body.appendChild( div );
@@ -85,10 +91,12 @@
         var browser = browsers[j];
         
         if ( diff.id in browser.snapshots ) {
-          add( browser.snapshots[diff.id], browser.userAgent );
+          add( browser.snapshots[diff.id], browser.id );
         }
       }
     }
   </script>
+  
+  <p><a href="submit.html">submission page</a></p>
 </body>
 </html>
