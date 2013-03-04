@@ -10,6 +10,45 @@ var diffs = [];
   }
   
   addDiff( {
+    id: 'a3pi1piarc',
+    name: '3\u03C0 to 1\u03C0 arc',
+    width: 32,
+    height: 32,
+    draw: function( context ) {
+      context.beginPath();
+      context.arc( 16, 16, 14, 3 * Math.PI, 1 * Math.PI, false );
+      context.fillStyle = '#000000';
+      context.fill();
+    }
+  } );
+  
+  addDiff( {
+    id: 'a2pim1piarc',
+    name: '2\u03C0 to -1\u03C0 arc',
+    width: 32,
+    height: 32,
+    draw: function( context ) {
+      context.beginPath();
+      context.arc( 16, 16, 14, 2 * Math.PI, -1 * Math.PI, false );
+      context.fillStyle = '#000000';
+      context.fill();
+    }
+  } );
+  
+  addDiff( {
+    id: 'a4pim4piarc',
+    name: '4\u03C0 to -4\u03C0 arc',
+    width: 32,
+    height: 32,
+    draw: function( context ) {
+      context.beginPath();
+      context.arc( 16, 16, 14, 4 * Math.PI, -4 * Math.PI, false );
+      context.fillStyle = '#000000';
+      context.fill();
+    }
+  } );
+  
+  addDiff( {
     id: 'zeroLengthLineJoin',
     name: 'Zero-length line join',
     width: 32,
