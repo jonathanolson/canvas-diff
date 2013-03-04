@@ -31,6 +31,11 @@
     
     .snapshot-container.current {
       margin-right: 20px;
+      cursor: pointer;
+    }
+    
+    pre {
+      margin-top: 20px;
     }
     
     .tooltip {
@@ -66,40 +71,62 @@
   <script type="text/javascript">
     
     for ( var i = 0; i < diffs.length; i++ ) {
-      var diff = diffs[i];
-      
-      var header = document.createElement( 'h2' );
-      header.appendChild( document.createTextNode( diff.name ) );
-      document.body.appendChild( header );
-      
-      function add( dataURL, id, name ) {
-        var img = document.createElement( 'img' );
-        img.setAttribute( 'class', 'snapshot' );
-        img.src = dataURL;
+      (function(){
+        var diff = diffs[i];
         
-        var div = document.createElement( 'div' );
-        div.setAttribute( 'class', 'snapshot-container' + ( id === 'current' ? ' current' : '' ) );
+        var header = document.createElement( 'h2' );
+        header.appendChild( document.createTextNode( diff.name ) );
+        document.body.appendChild( header );
         
-        var span = document.createElement( 'span' );
-        span.setAttribute( 'class', 'tooltip' );
-        span.setAttribute( 'data-browser-id', id );
-        span.setAttribute( 'data-browser-name', name );
-        span.setAttribute( 'data-diff-id', diff.id );
-        span.setAttribute( 'data-diff-name', diff.name );
-        span.appendChild( img );
-        div.appendChild( span );
-        document.body.appendChild( div );
-      }
-      
-      add( diffToCanvas( diff ).toDataURL(), 'current', 'current' );
-      
-      for ( var j = 0; j < browsers.length; j++ ) {
-        var browser = browsers[j];
+        var code = document.createElement( 'pre' );
+        code.appendChild( document.createTextNode( '    ' + diff.draw.toString() ) );
+        code.style.display = 'none';
         
-        if ( diff.id in browser.snapshots ) {
-          add( browser.snapshots[diff.id], browser.id, browser.name );
+        function add( dataURL, id, name ) {
+          
+          var img = document.createElement( 'img' );
+          img.setAttribute( 'class', 'snapshot' );
+          img.src = dataURL;
+          
+          var div = document.createElement( 'div' );
+          div.setAttribute( 'class', 'snapshot-container' + ( id === 'current' ? ' current' : '' ) );
+          
+          var span = document.createElement( 'span' );
+          span.setAttribute( 'class', 'tooltip' );
+          span.setAttribute( 'data-browser-id', id );
+          span.setAttribute( 'data-browser-name', name );
+          span.setAttribute( 'data-diff-id', diff.id );
+          span.setAttribute( 'data-diff-name', diff.name );
+          span.appendChild( img );
+          div.appendChild( span );
+          document.body.appendChild( div );
+          
+          if ( id === 'current' ) {
+            img.addEventListener( 'click', function() {
+              if ( code.style.display === 'none' ) {
+                code.style.display = 'block';
+              } else {
+                code.style.display = 'none';
+              }
+            } );
+          }
+          
         }
-      }
+        
+        add( diffToCanvas( diff ).toDataURL(), 'current', 'current' );
+        
+        for ( var j = 0; j < browsers.length; j++ ) {
+          var browser = browsers[j];
+          
+          if ( diff.id in browser.snapshots ) {
+            add( browser.snapshots[diff.id], browser.id, browser.name );
+          }
+        }
+        
+        // code after the images
+        document.body.appendChild( code );
+        
+      })();
     }
   </script>
   
