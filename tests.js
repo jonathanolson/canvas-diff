@@ -128,4 +128,35 @@ var diffs = [];
     }
   } );
   
+  addDiff( {
+    id: 'transformedClearRect',
+    name: 'Transformed clearRect',
+    width: 32,
+    height: 32,
+    draw: function( context ) {
+      context.fillStyle = '#000000';
+      context.fillRect( 0, 0, this.width, this.height );
+      
+      context.save();
+      context.translate( 16, 8 );
+      context.rotate( Math.PI / 4 );
+      context.transform( 1, 0.5, 0, 1, 0, 0 );
+      context.clearRect( 0, 0, 10, 10 );
+      context.restore();
+    }
+  } );
+  
+  addDiff( {
+    id: 'adaptiveBezierEndpoint',
+    name: 'Adaptive Bezier Endpoint',
+    width: 64,
+    height: 48,
+    draw: function( context ) {
+      demoPath( context, this.width, this.height, function() {
+        context.moveTo( -120, -120 );
+        context.quadraticCurveTo( 40, 40, 40, 20 );
+      } );
+    }
+  } );
+  
 })();
