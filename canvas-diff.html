@@ -46,7 +46,7 @@
       border-radius: 5px;
       top: 10px;
       color: #fff;
-      content: attr(data-id);
+      content: attr(data-name);
       display: block;
       left: 0;
       padding: 5px 15px;
@@ -69,7 +69,7 @@
       header.appendChild( document.createTextNode( diff.id ) );
       document.body.appendChild( header );
       
-      function add( dataURL, id, userAgent ) {
+      function add( dataURL, id, name ) {
         var img = document.createElement( 'img' );
         img.setAttribute( 'class', 'snapshot' );
         img.src = dataURL;
@@ -80,6 +80,7 @@
         var span = document.createElement( 'span' );
         span.setAttribute( 'class', 'tooltip' );
         span.setAttribute( 'data-id', id );
+        span.setAttribute( 'data-name', name );
         span.appendChild( img );
         div.appendChild( span );
         document.body.appendChild( div );
@@ -91,7 +92,7 @@
         var browser = browsers[j];
         
         if ( diff.id in browser.snapshots ) {
-          add( browser.snapshots[diff.id], browser.id );
+          add( browser.snapshots[diff.id], browser.id, browser.name );
         }
       }
     }

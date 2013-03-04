@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  <input type="text" id="id"></input> <a href="javascript:submit()">submit</a>
+  <input type="text" id="id"></input><input type="text" id="name"></input> <a href="javascript:submit()">submit</a>
   
   <script type="text/javascript">
     
@@ -38,9 +38,18 @@
       localStorage.canvasDiffId = idText.value;
     } );
     
+    var nameText = document.getElementById( 'name' );
+    if ( localStorage.canvasDiffName ) {
+      nameText.value = localStorage.canvasDiffName;
+    }
+    nameText.addEventListener( 'input', function() {
+      localStorage.canvasDiffName = nameText.value;
+    } );
+    
     function submit() {
       var output =  "browsers.push( {\n" +
                     "  id: '" + e( idText.value ) + "',\n" + 
+                    "  name: '" + e( nameText.value ) + "',\n" + 
                     "  userAgent: '" + e( navigator.userAgent ) + "',\n" + 
                     "  appVersion: '" + e( navigator.appVersion ) + "',\n" + 
                     "  platform: '" + e( navigator.platform ) + "',\n" + 
