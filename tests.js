@@ -327,23 +327,6 @@ var diffs = [];
   } );
   
   addDiff( {
-    id: 'cubic5',
-    name: 'Cubic 5',
-    width: 48,
-    height: 48,
-    draw: function( context ) {
-      demoPath( context, this.width, this.height, function() {
-        context.save();
-        context.translate( 24, 24 );
-        context.scale( 1, 1 );
-        context.moveTo( 0, 0 );
-        context.bezierCurveTo( 1, 0, 1, 1, 0, 0.5 );
-        context.restore();
-      } );
-    }
-  } );
-  
-  addDiff( {
     id: 'cubic6',
     name: 'Cubic 6',
     width: 48,
@@ -354,7 +337,7 @@ var diffs = [];
         context.translate( 24, 24 );
         context.scale( 1, 1 );
         context.moveTo( 0, 0 );
-        context.bezierCurveTo( -1, 0, 1, 0, 0, 0 );
+        context.bezierCurveTo( 1, 0, 1, 1, 0, 0.5 );
         context.restore();
       } );
     }
@@ -371,7 +354,7 @@ var diffs = [];
         context.translate( 24, 24 );
         context.scale( 1, 1 );
         context.moveTo( 0, 0 );
-        context.bezierCurveTo( -1, 0, 1, 0, 0, 0.1 );
+        context.bezierCurveTo( -1, 0, 1, 0, 0, 0 );
         context.restore();
       } );
     }
@@ -388,7 +371,7 @@ var diffs = [];
         context.translate( 24, 24 );
         context.scale( 1, 1 );
         context.moveTo( 0, 0 );
-        context.bezierCurveTo( -1, 0, 1, 0, 0.1, 0 );
+        context.bezierCurveTo( -1, 0, 1, 0, 0, 0.1 );
         context.restore();
       } );
     }
@@ -397,6 +380,23 @@ var diffs = [];
   addDiff( {
     id: 'cubic9',
     name: 'Cubic 9',
+    width: 48,
+    height: 48,
+    draw: function( context ) {
+      demoPath( context, this.width, this.height, function() {
+        context.save();
+        context.translate( 24, 24 );
+        context.scale( 1, 1 );
+        context.moveTo( 0, 0 );
+        context.bezierCurveTo( -1, 0, 1, 0, 0.1, 0 );
+        context.restore();
+      } );
+    }
+  } );
+  
+  addDiff( {
+    id: 'cubic10',
+    name: 'Cubic 10',
     width: 48,
     height: 48,
     draw: function( context ) {
