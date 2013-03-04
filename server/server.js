@@ -2,7 +2,7 @@
 var http = require( 'http' );
 var fs = require('fs');
 
-var ip = '127.0.0.1';
+var ip = '192.168.1.74';
 var port = 8082;
 
 http.createServer( function( req, res ) {
@@ -17,6 +17,7 @@ http.createServer( function( req, res ) {
   
   // bail out quickly if it is just an OPTIONS request from CORS (we are on a different port)
   if ( req.method === 'OPTIONS' ) {
+    console.log( 'OPTIONS request' );
     res.writeHead( 200, headers );
     res.end( 'Success' );
     return;
