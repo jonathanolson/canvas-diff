@@ -1,6 +1,10 @@
 
-// just used for test case creation
 var http = require( 'http' );
+var fs = require('fs');
+
+var ip = '127.0.0.1';
+var port = 8082;
+
 http.createServer( function( req, res ) {
   // see http://nodejs.org/api/http.html#http_request_method for docs
   
@@ -23,9 +27,20 @@ http.createServer( function( req, res ) {
     postdata += chunk;
   } );
   req.on( 'end', function () {
-    console.log( 'POSTed: ' + postdata );
-    res.writeHead( 200, headers );
-    res.end( 'Success' );
+    fs.writeFile( '../snapshots/last.js', postdata, function( err ) {
+      if( err ) {
+        console.log( err );
+        
+        res.writeHead( 500, headers );
+        res.end( 'Failure' );
+      } else {
+        console.log( "Saved:\n" + postdata );
+        
+        res.writeHead( 200, headers );
+        res.end( 'Success' );
+      }
+    }); 
   });
-} ).listen( 8082, '127.0.0.1' );
-console.log( 'Server running at http://127.0.0.1:8082/' );
+} ).listen( port, ip );
+console.log( 'ip: ' + ip );
+console.log( 'port: ' + port );
