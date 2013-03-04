@@ -7,19 +7,87 @@
   <script src="canvas-diff.js"></script>
   <script src="tests.js"></script>
   
+  <script src="snapshots/last.js"></script>
+  
   <style type="text/css">
-    .canvas {
+    
+    h2 {
+      margin-top: 30px;
+      margin-bottom: 0;
+    }
+    
+    .snapshot {
       border: 1px solid black;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .snapshot-container {
+      display: inline;
+    }
+    
+    .tooltip {
+      display: inline;
+      position: relative;
+    }
+    .tooltip:hover {
+      text-decoration: none;
+    }
+    .tooltip:hover:after {
+      background: #111;
+      background: rgba(0,0,0,.8);
+      border-radius: 5px;
+      top: 10px;
+      color: #fff;
+      content: attr(data-browser);
+      display: block;
+      left: 0;
+      padding: 5px 15px;
+      position: absolute;
+      white-space: nowrap;
+      z-index: 1000;
     }
   </style>
 </head>
 
 <body>
+  <h1>Canvas Browser Differences</h1>
+  
   <script type="text/javascript">
+    
     for ( var i = 0; i < diffs.length; i++ ) {
-      var canvas = diffToCanvas( diffs[i] );
-      canvas.setAttribute( 'class', 'canvas main-canvas' );
-      document.body.appendChild( canvas );
+      var diff = diffs[i];
+      
+      var header = document.createElement( 'h2' );
+      header.appendChild( document.createTextNode( diff.id ) );
+      document.body.appendChild( header );
+      
+      function add( dataURL, userAgent ) {
+        var img = document.createElement( 'img' );
+        img.setAttribute( 'class', 'snapshot' );
+        img.setAttribute( 'data-browser', userAgent );
+        img.src = dataURL;
+        
+        var div = document.createElement( 'div' );
+        div.setAttribute( 'class', 'snapshot-container' );
+        
+        var span = document.createElement( 'span' );
+        span.setAttribute( 'class', 'tooltip' );
+        span.setAttribute( 'data-browser', userAgent );
+        span.appendChild( img );
+        div.appendChild( span );
+        document.body.appendChild( div );
+      }
+      
+      add( diffToCanvas( diff ).toDataURL(), 'current' );
+      
+      for ( var j = 0; j < browsers.length; j++ ) {
+        var browser = browsers[j];
+        
+        if ( diff.id in browser.snapshots ) {
+          add( browser.snapshots[diff.id], browser.userAgent );
+        }
+      }
     }
   </script>
 </body>

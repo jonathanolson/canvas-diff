@@ -8,4 +8,4 @@ function diffToCanvas( diff ) {
   return canvas;
 }
 
-var snapshots = [];
+var browsers = [];

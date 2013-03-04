@@ -10,16 +10,16 @@ var diffs = [];
   }
   
   addDiff( {
-    id: 'zeroLengthLine',
+    id: 'zeroLengthLineJoin',
     width: 32,
     height: 32,
     draw: function( context ) {
       context.beginPath();
-      context.moveTo( 0, 16 );
-      context.lineTo( 16, 16 );
-      context.lineTo( 16, 16 );
-      context.lineTo( 16, 0 );
-      context.lineWidth = 20;
+      context.moveTo( 0, 2 );
+      context.lineTo( 2, 2 );
+      context.lineTo( 2, 2 );
+      context.lineTo( 2, 0 );
+      context.lineWidth = 40;
       context.strokeStyle = '#000000';
       context.stroke();
     }

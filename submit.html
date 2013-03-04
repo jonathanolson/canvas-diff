@@ -28,7 +28,7 @@
       diffString += "    " + e( diffs[i].id ) + ": '" + e( canvas.toDataURL() ) + "'" + ( i === diffs.length - 1 ? '' : ',' ) + "\n";
     }
     
-    var output =  "snapshots.push( {\n" +
+    var output =  "browsers.push( {\n" +
                   "  userAgent: '" + e( navigator.userAgent ) + "',\n" + 
                   "  appVersion: '" + e( navigator.appVersion ) + "',\n" + 
                   "  platform: '" + e( navigator.platform ) + "',\n" + 

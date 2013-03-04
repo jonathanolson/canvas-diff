@@ -1,8 +1,8 @@
-snapshots.push( {
-  userAgent: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.97 Safari/537.22',
-  appVersion: '5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.97 Safari/537.22',
+browsers.push( {
+  userAgent: 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:19.0) Gecko/20100101 Firefox/19.0',
+  appVersion: '5.0 (Windows)',
   platform: 'Win32',
   snapshots: {
-    zeroLengthLine: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAUklEQVRYR+3XMQ4AIAhDUbn/oXVxpB1Io8t3FBHyEgZq6bNNbBKqLqm9vA9pAIFnAulCakLkFNAAAggggAACCCCAwHeByZYTy3GbUayI+4gGEDiiIRohVMbGOQAAAABJRU5ErkJggg=='
+    zeroLengthLineJoin: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAVklEQVRYhe3O0QkAIAwD0Yzj5g7iYLqCbVMEuUC+70nSbvr1AAAAAOBLwHoJmJLGK0A47gSk4i5AOu4AlOJVQDleAVjiWYAtngFY41GAPR4BtMQZY4wdWbWeIj4AUqYAAAAASUVORK5CYII='
   }
 } );
