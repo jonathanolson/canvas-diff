@@ -59,7 +59,7 @@
                     "} );\n";
       
       var xmlhttp = new window.XMLHttpRequest();
-      xmlhttp.open( 'POST', 'http://192.168.1.74:8082/' + idText.value, true );
+      xmlhttp.open( 'POST', 'http://192.168.0.2:8082/' + idText.value, true );
       xmlhttp.setRequestHeader( 'Content-type', 'text/javascript' );
       xmlhttp.send( output );
     }

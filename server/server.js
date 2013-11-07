@@ -2,7 +2,7 @@
 var http = require( 'http' );
 var fs = require('fs');
 
-var ip = '192.168.1.74';
+var ip = '192.168.0.2';
 var port = 8082;
 
 http.createServer( function( req, res ) {
