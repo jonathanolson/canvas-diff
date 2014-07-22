@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>Painting browser-specific content using Canvas quirks</title>
+
+  <style type="text/css">
+    html, body, canvas {
+      vertical-align: middle;
+    }
+
+    h1,h2,h3,h4,h5,h6 {
+      font-family: Helvetica, Helvetica Neue, Arial, sans-serif;
+    }
+
+    canvas {
+      border: 1px solid black;
+      display: inline;
+      margin-right: 10px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+  </style>
+
+  <script src="paint-tests.js" type="text/javascript"></script>
+</head>
+<body>
+  <h1>Painting browser-specific content using Canvas quirks</h1>
+
+  <p>
+    The Canvas below is painted by using Canvas quirks (differences in browser implementations, not whether a feature
+    is implemented). Each quirk is combined with browser-specific content to be rendered (just text below). They are all
+    drawn, but Canvas blend modes are used so that only the content for your specific browser is displayed.
+  </p>
+
+  <p>
+    No browser detection is done, and the Canvases we paint to are never read.
+  </p>
+
+  <canvas id="mainCanvas">
+    Canvas not supported
+  </canvas>
+
+  <h2>
+    <a href="/canvas-diff/">Quirks Available</a>
+  </h2>
+
+  <p>
+    The following is a list of quirks that can be used for detection (currently we only check a subset) and whether they
+    are present. They are cropped versions of a single draw call (stroke or fill) for a path. For details, please see
+    a list of <a href="/canvas-diff/">all quirks with code</a>.
+  </p>
+
+  <p>
+    This works for all tested current browsers as of July 21st, 2014. When I have time available, I'll be submitting
+    bug reports for these (hopefully they will be all fixed one day!)
+  </p>
+
+  <script type="text/javascript">
+    var mainCanvas = document.getElementById( 'mainCanvas' );
+    mainCanvas.width = 600;
+    mainCanvas.height = 80;
+    var mainContext = mainCanvas.getContext( '2d' );
+
+    function paintText( matcher, text ) {
+      matcher.paintIfMatches( mainCanvas, mainContext, function( canvas, context ) {
+        context.fillStyle = '#000';
+        context.font = '30px Helvetica, Helvetica Neue, Arial, sans-serif';
+        context.fillText( text, ( mainCanvas.width - context.measureText( text ).width ) / 2, 50 );
+      } );
+    }
+
+    paintText( matchers.ChromeBlink,  'Chrome or Blink-based (e.g. Opera)' );
+    paintText( matchers.ChromeWebKit, 'Chrome or Chromium/WebKit-based' );
+    paintText( matchers.IE9,          'IE9' );
+    paintText( matchers.IE10Plus,     'IE10+' );
+    paintText( matchers.FFLinux,      'Firefox, probably on Linux' );
+    paintText( matchers.FFWinAndroid, 'Firefox, on Windows or Android' );
+    paintText( matchers.FFOSX,        'Firefox, on Mac OS X' );
+    paintText( matchers.Safari7Plus,  'Safari 7+ (OS X or iOS) or Chrome-iOS' );
+    paintText( matchers.Safari6Minus, 'Safari 6.x or OS X <= 10.8' );
+
+    var paintExplanations = {
+      a3pi1piarc: 'Opera ~12',
+      a2pim1piarc: 'Chrome ~30 (non-iOS), Opera ~17',
+      a4pim4piarc: 'NOT IE or Opera ~12',
+      zeroLengthLineJoin: 'NOT FF Win7',
+      offZeroLineJoin: 'IE',
+      forwardAndBackQuadratic: 'NOT iOS/OSX Safari/FF or Chrome iOS',
+      cubicCusp: 'IE, FF Linux/Win7',
+      cubic4round: 'iOS/OSX Safari, OSX/Linux/Win7 FF, Chrome iOS',
+      cubic4square: 'iOS/OSX Safari/FF, Chrome iOS, FF Win7',
+      cubic4squareCorner: 'iOS/OSX Safari/FF, Chrome iOS',
+      cubic8leftButt: 'IE, Linux/Win7 FF, OS X <=10.8 Safari/FF',
+      cubic8leftSquare: 'NOT OS X <=10.8 Safari/FF',
+      cubic10lowerRightButt: 'IE, Linux/Win7 FF',
+      cubic10topSquare: 'NOT older WebKit (Chrome <=~26, Safari 6, Android Stock/Dolphin 11',
+      cubic10topButt: 'IE, FF Win7',
+      miterLinesRight: 'NOT FF Win/Android',
+      miterLinesUpperLeft: 'FF Linux',
+      arcSubpathPoints: 'IE9, FF'
+    };
+
+    for ( var key in paintTests ) {
+      var canvas = document.createElement( 'canvas' );
+      canvas.width = 1;
+      canvas.height = 1;
+      canvas.style.width = '16px';
+      canvas.style.height = '16px';
+
+      var context = canvas.getContext( '2d' );
+
+      paintTests[key]( context, '#000' );
+
+      document.body.appendChild( canvas );
+
+      document.body.appendChild( document.createTextNode( paintExplanations[key] + ' (' + key + ')' ) );
+      document.body.appendChild( document.createElement( 'br' ) );
+    }
+
+  </script>
+</body>
+</html>

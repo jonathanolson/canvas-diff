@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>Canvas browser-specific display quirks</title>
+
+  <style type="text/css">
+    h1,h2,h3,h4,h5,h6 {
+      font-family: Helvetica, Helvetica Neue, Arial, sans-serif;
+    }
+
+    .snapshot {
+      border: 1px solid black;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    .snapshot-container {
+      display: inline;
+      position: relative;
+      left: 0;
+      top: 0;
+    }
+
+    .snapshot-container.current {
+      margin-right: 20px;
+      cursor: pointer;
+      display: block;
+    }
+
+    .snapshot-container.current:before {
+      font-size: 16px;
+      content: "Your browser";
+      display: block;
+      position: relative;
+      left: 0;
+      top: 0;
+    }
+
+    .snapshot-container.current:after {
+      font-size: 16px;
+      content: "All browsers (tap or hover over thumbnails for details)";
+      display: block;
+      position: relative;
+      left: 0;
+      top: 0;
+    }
+
+    .tooltip {
+      display: inline;
+      position: relative;
+    }
+    .tooltip:hover, .tooltip.hover {
+      text-decoration: none;
+    }
+    .tooltip:hover:after, .tooltip.hover:after {
+      background: #111;
+      background: rgba(0,0,0,.8);
+      border-radius: 5px;
+      top: 10px;
+      color: #fff;
+      content: attr(data-browser-name);
+      display: block;
+      left: 0;
+      padding: 5px 15px;
+      position: absolute;
+      /*width: 500px;*/
+      white-space: pre;
+      z-index: 1000;
+      font-size: 12px;
+    }
+    /*.current .tooltip:hover:after {
+      content: attr(data-diff-name);
+    }*/
+  </style>
+
+  <script src="analysis/results/exemplar-data.js" type="text/javascript"></script>
+  <script src="canvas-diff.js" type="text/javascript"></script>
+  <script src="tests.js" type="text/javascript"></script>
+</head>
+<body>
+  <h1>Canvas browser-specific display quirks</h1>
+
+  <p>
+    The following is a list of Canvas rendering quirks for current and past browsers. It's possible to
+    <a href="/canvas-diff/paint-browser-specific">paint browser-specific content</a> using these quirks.
+  </p>
+
+  <p>
+    For quirks with displayed color, a thin red stroke is used for the path (with a gray fill), and the following RGB color
+    components indicate the content for the specified line-cap (many issues are only with one or a few types of line-caps):
+  </p>
+
+  <ul>
+    <li>Red: 'butt'</li>
+    <li>Green: 'round'</li>
+    <li>Blue: 'square'</li>
+  </ul>
+
+  <p>
+    Thus white areas will be included in all types of strokes, cyan will not be included in 'butt' line-cap strokes, etc.
+  </p>
+
+  <p>
+    When I have the available time, I'll be submitting bug reports for any remaining quirks (hopefully browsers will be
+    consistent some day!)
+  </p>
+
+  <script type="text/javascript">
+
+    for ( var i = 0; i < diffs.length; i++ ) {
+      (function(){
+        var diff = diffs[i];
+
+        var header = document.createElement( 'h2' );
+        header.appendChild( document.createTextNode( diff.name ) );
+        document.body.appendChild( header );
+
+        var code = document.createElement( 'pre' );
+        code.appendChild( document.createTextNode( '    ' + diff.draw.toString() ) );
+
+        function add( dataURL, id, name ) {
+
+          var img = document.createElement( 'img' );
+          img.setAttribute( 'class', 'snapshot' );
+          img.src = dataURL;
+
+          var div = document.createElement( 'div' );
+          div.setAttribute( 'class', 'snapshot-container' + ( id === 'current' ? ' current' : '' ) );
+
+          var span = document.createElement( 'span' );
+          span.setAttribute( 'class', 'tooltip' );
+          span.setAttribute( 'data-browser-id', id );
+          span.setAttribute( 'data-browser-name', name );
+          span.setAttribute( 'data-diff-id', diff.id );
+          span.setAttribute( 'data-diff-name', diff.name );
+          span.appendChild( img );
+          div.appendChild( span );
+          document.body.appendChild( div );
+
+          img.addEventListener( 'click', function() {
+            console.log( span.className );
+            if ( span.className === 'tooltip' ) {
+              span.className = 'tooltip hover';
+            } else {
+              span.className = 'tooltip';
+            }
+          } );
+
+        }
+
+        add( diffToCanvas( diff ).toDataURL(), 'current', 'Your Browser' );
+
+        var snapshot = snapshots[diff.id];
+
+
+        for ( var k = 0; k < snapshot.clusters.length; k++ ) {
+          var cluster = snapshot.clusters[k];
+
+          // document.body.appendChild( document.createTextNode( 'cluster' ) );
+
+          var browserNames = [];
+
+          for ( var j = 0; j < cluster.browsers.length; j++ ) {
+            browserNames.push( browserData[cluster.browsers[j].id].name );
+            // add( cluster.browsers[j].image, '', '' );
+          }
+
+          add( cluster.exemplarImage, '', browserNames.join( '\n' ) );
+        }
+
+        // for ( var j = 0; j < browsers.length; j++ ) {
+        //   var browser = browsers[j];
+
+        //   if ( diff.id in browser.snapshots ) {
+        //     add( browser.snapshots[diff.id], browser.id, browser.name );
+        //   }
+        // }
+
+        // code after the images
+        document.body.appendChild( code );
+
+      })();
+    }
+  </script>
+</body>
+</html>

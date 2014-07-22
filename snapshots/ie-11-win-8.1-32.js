@@ -1,6 +1,6 @@
 browsers.push( {
   id: 'ie-11-win-8.1-32',
-  name: 'IE 11 (Win8)',
+  name: 'IE11 (Win8)',
   userAgent: 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; .NET4.0E; .NET4.0C; rv:11.0) like Gecko',
   appVersion: '5.0 (Windows NT 6.3; Trident/7.0; .NET4.0E; .NET4.0C; rv:11.0) like Gecko',
   platform: 'Win32',

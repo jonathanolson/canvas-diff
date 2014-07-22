@@ -3,12 +3,12 @@ var diffMap = {};
 var diffs = [];
 
 (function(){
-  
+
   function addDiff( diff ) {
     diffMap[diff.id] = diff;
     diffs.push( diff );
   }
-  
+
   addDiff( {
     id: 'a3pi1piarc',
     name: '3\u03C0 to 1\u03C0 arc',
@@ -21,7 +21,7 @@ var diffs = [];
       context.fill();
     }
   } );
-  
+
   addDiff( {
     id: 'a2pim1piarc',
     name: '2\u03C0 to -1\u03C0 arc',
@@ -34,7 +34,7 @@ var diffs = [];
       context.fill();
     }
   } );
-  
+
   addDiff( {
     id: 'a4pim4piarc',
     name: '4\u03C0 to -4\u03C0 arc',
@@ -47,7 +47,7 @@ var diffs = [];
       context.fill();
     }
   } );
-  
+
   addDiff( {
     id: 'zeroLengthLineJoin',
     name: 'Zero-length line join',
@@ -64,7 +64,7 @@ var diffs = [];
       context.stroke();
     }
   } );
-  
+
   addDiff( {
     id: 'zeroLengthArcJoin',
     name: 'Zero-length arc join',
@@ -81,7 +81,7 @@ var diffs = [];
       context.stroke();
     }
   } );
-  
+
   addDiff( {
     id: 'zeroLengthQuadraticJoin',
     name: 'Zero-length quadratic join',
@@ -98,7 +98,7 @@ var diffs = [];
       context.stroke();
     }
   } );
-  
+
   addDiff( {
     id: 'zeroLengthCubicJoin',
     name: 'Zero-length cubic join',
@@ -115,7 +115,7 @@ var diffs = [];
       context.stroke();
     }
   } );
-  
+
   addDiff( {
     id: 'sameAngleArcJoin',
     name: 'Same-angle arc join',
@@ -132,7 +132,7 @@ var diffs = [];
       context.stroke();
     }
   } );
-  
+
   addDiff( {
     id: 'offZeroLineJoin',
     name: 'Off-zero line join',
@@ -149,7 +149,7 @@ var diffs = [];
       context.stroke();
     }
   } );
-  
+
   addDiff( {
     id: 'offZeroArcJoin',
     name: 'Off-zero arc join',
@@ -166,7 +166,7 @@ var diffs = [];
       context.stroke();
     }
   } );
-  
+
   addDiff( {
     id: 'transformedClearRect',
     name: 'Transformed clearRect',
@@ -175,7 +175,7 @@ var diffs = [];
     draw: function( context ) {
       context.fillStyle = '#000000';
       context.fillRect( 0, 0, this.width, this.height );
-      
+
       context.save();
       context.translate( 16, 8 );
       context.rotate( Math.PI / 4 );
@@ -184,7 +184,7 @@ var diffs = [];
       context.restore();
     }
   } );
-  
+
   addDiff( {
     id: 'adaptiveBezierEndpoint',
     name: 'Adaptive Bezier Endpoint',
@@ -197,7 +197,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'forwardAndBackQuadratic',
     name: 'Forward and Back Quadratic',
@@ -210,7 +210,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'cubic1',
     name: 'Cubic 1',
@@ -224,7 +224,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'miterLimit',
     name: 'Miter Limit',
@@ -239,7 +239,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'cubicCusp',
     name: 'Cubic Cusp',
@@ -256,7 +256,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'cubic2',
     name: 'Cubic 2',
@@ -273,7 +273,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'cubic3',
     name: 'Cubic 3',
@@ -290,7 +290,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'cubic4',
     name: 'Cubic 4',
@@ -308,7 +308,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'cubic5',
     name: 'Cubic 5',
@@ -325,7 +325,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'cubic6',
     name: 'Cubic 6',
@@ -342,7 +342,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'cubic7',
     name: 'Cubic 7',
@@ -359,7 +359,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'cubic8',
     name: 'Cubic 8',
@@ -376,7 +376,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'cubic9',
     name: 'Cubic 9',
@@ -393,7 +393,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'cubic10',
     name: 'Cubic 10',
@@ -410,7 +410,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'lines1',
     name: 'Lines 1',
@@ -430,7 +430,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'miterLines',
     name: 'Miter Lines',
@@ -450,7 +450,7 @@ var diffs = [];
       } );
     }
   } );
-  
+
   addDiff( {
     id: 'zigZagAntialiasing',
     name: 'Zig-Zag Antialiasing',
@@ -472,7 +472,7 @@ var diffs = [];
       zag( context, 250, 0, 10, 100, 2, 5 );
     }
   } );
-  
+
   addDiff( {
     id: 'textShear',
     name: 'Text Shear',
@@ -495,7 +495,7 @@ var diffs = [];
       }
     }
   } );
-  
+
   addDiff( {
     id: 'shadowDrawImage',
     name: 'Shadow drawImage',
@@ -506,13 +506,13 @@ var diffs = [];
       scratchCanvas.width = 50;
       scratchCanvas.height = 50;
       var scratchContext = scratchCanvas.getContext( '2d' );
-      
+
       scratchContext.beginPath();
       scratchContext.arc( 25, 25, 25, 0, 2 * Math.PI, false );
       scratchContext.closePath();
       scratchContext.fillStyle = '#0000ff';
       scratchContext.fill();
-      
+
       context.shadowOffsetX = 10;
       context.shadowOffsetY = 10;
       context.shadowBlur = 60;
@@ -520,5 +520,5 @@ var diffs = [];
       context.drawImage( scratchCanvas, 0, 0 );
     }
   } );
-  
+
 })();
